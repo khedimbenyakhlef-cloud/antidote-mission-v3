@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIDOTE MISSION V3 — Bio-Défense & Médecine | KHEDIM BENYAKHLEF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #00ffe7;
+  --secondary: #ff006e;
+  --accent: #7b00ff;
+  --gold: #ffd700;
+  --bg: #02040a;
+  --bg2: #060d1a;
+  --bg3: #0a1628;
+  --text: #e0f4ff;
+  --dim: #4a7a99;
+  --success: #00ff88;
+  --danger: #ff3c3c;
+  --warn: #ffaa00;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-grid {
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,255,231,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,231,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-move 20s linear infinite;
+}
+@keyframes grid-move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+.bg-particles {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: float-particle linear infinite;
+  opacity: 0;
+}
+@keyframes float-particle {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+}
+
+header {
+  position: relative; z-index: 100;
+  padding: 0;
+  background: linear-gradient(180deg, rgba(0,255,231,0.08) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(0,255,231,0.2);
+}
+.header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 40px;
+}
+.logo-zone {
+  display: flex; align-items: center; gap: 16px;
+}
+.logo-icon {
+  width: 60px; height: 60px;
+  position: relative;
+}
+.logo-icon svg {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 0 8px var(--primary));
+  animation: logo-pulse 3s ease-in-out infinite;
+}
+@keyframes logo-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--primary)); }
+  50% { filter: drop-shadow(0 0 20px var(--primary)) drop-shadow(0 0 40px rgba(0,255,231,0.4)); }
+}
+.logo-text h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem; font-weight: 900;
+  color: var(--primary);
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px var(--primary), 0 0 40px rgba(0,255,231,0.3);
+}
+.logo-text .tagline {
+  font-size: 0.7rem; color: var(--secondary);
+  letter-spacing: 3px; font-weight: 600;
+  text-transform: uppercase;
+}
+.founded-by {
+  text-align: right;
+  font-size: 0.65rem;
+  color: var(--dim);
+  letter-spacing: 1px;
+}
+.founded-by strong {
+  display: block;
+  color: var(--gold);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+}
+nav {
+  display: flex; gap: 0;
+  background: rgba(0,0,0,0.4);
+  border-top: 1px solid rgba(0,255,231,0.1);
+  overflow-x: auto;
+}
+nav a {
+  padding: 12px 24px;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(0,255,231,0.08);
+  transition: all 0.3s;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+nav a:hover, nav a.active {
+  color: var(--primary);
+  background: rgba(0,255,231,0.05);
+}
+
+.section { display: none; position: relative; z-index: 10; }
+.section.active { display: block; }
+
+.hero {
+  padding: 60px 40px;
+  max-width: 1400px; margin: 0 auto;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+.stat-card {
+  background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+  border: 1px solid rgba(0,255,231,0.15);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(0,255,231,0.1);
+}
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+.stat-card.danger::before { background: linear-gradient(90deg, transparent, var(--danger), transparent); }
+.stat-card.warn::before { background: linear-gradient(90deg, transparent, var(--warn), transparent); }
+.stat-card.success::before { background: linear-gradient(90deg, transparent, var(--success), transparent); }
+.stat-card.accent::before { background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+.stat-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem; font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+}
+.stat-card.danger .stat-num { color: var(--danger); }
+.stat-card.warn .stat-num { color: var(--warn); }
+.stat-card.success .stat-num { color: var(--success); }
+.stat-label { font-size: 0.7rem; letter-spacing: 2px; color: var(--dim); margin-top: 6px; text-transform: uppercase; }
+.stat-sub { font-size: 0.85rem; color: var(--text); margin-top: 8px; }
+
+.alert-banner {
+  background: linear-gradient(90deg, rgba(255,0,110,0.2), rgba(255,60,60,0.1));
+  border: 1px solid rgba(255,0,110,0.4);
+  border-radius: 8px;
+  padding: 16px 24px;
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 30px;
+  animation: alert-pulse 2s ease-in-out infinite;
+}
+@keyframes alert-pulse {
+  0%, 100% { border-color: rgba(255,0,110,0.4); }
+  50% { border-color: rgba(255,0,110,0.8); }
+}
+.alert-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--danger);
+  animation: blink 1s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+.viz-container {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  height: calc(100vh - 120px);
+  gap: 0;
+}
+@media (max-width: 900px) {
+  .viz-container { grid-template-columns: 1fr; height: auto; }
+}
+.viz-canvas-zone {
+  position: relative;
+  background: radial-gradient(ellipse at center, #020818 0%, var(--bg) 100%);
+  overflow: hidden;
+  border-right: 1px solid rgba(0,255,231,0.15);
+}
+canvas#microCanvas {
+  width: 100%; height: 100%;
+  display: block;
+}
+.viz-hud {
+  position: absolute; top: 20px; left: 20px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.hud-badge {
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,255,231,0.3);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--primary);
+}
+.viz-controls {
+  position: absolute; bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.viz-btn {
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,255,231,0.4);
+  color: var(--primary);
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.viz-btn:hover, .viz-btn.active {
+  background: rgba(0,255,231,0.15);
+  box-shadow: 0 0 15px rgba(0,255,231,0.3);
+}
+.viz-panel {
+  background: var(--bg2);
+  overflow-y: auto;
+  padding: 24px;
+}
+.viz-panel h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  color: var(--primary);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0,255,231,0.15);
+}
+.process-step {
+  display: flex; gap: 12px; margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  border-left: 3px solid var(--dim);
+  transition: border-color 0.3s;
+}
+.process-step.active { border-left-color: var(--primary); background: rgba(0,255,231,0.05); }
+.process-step.complete { border-left-color: var(--success); }
+.step-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem; font-weight: 900;
+  color: var(--dim);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+}
+.process-step.active .step-num { color: var(--primary); }
+.process-step.complete .step-num { color: var(--success); }
+.step-content h4 { font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.step-content p { font-size: 0.75rem; color: var(--dim); line-height: 1.5; }
+
+#analysis-section { padding: 40px; }
+.analysis-wrap { max-width: 1200px; margin: 0 auto; }
+.analyzer-box {
+  background: var(--bg2);
+  border: 1px solid rgba(0,255,231,0.2);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+.analyzer-box h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem; letter-spacing: 3px;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+.input-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.field-label {
+  font-size: 0.7rem; letter-spacing: 2px; color: var(--dim);
+  text-transform: uppercase; margin-bottom: 6px;
+}
+select, input, textarea {
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(0,255,231,0.2);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 10px 14px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+select:focus, input:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0,255,231,0.1);
+}
+option { background: var(--bg2); }
+textarea { resize: vertical; min-height: 100px; }
+.btn-primary {
+  background: linear-gradient(135deg, rgba(0,255,231,0.2), rgba(0,255,231,0.1));
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 14px 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+.btn-primary:hover {
+  background: rgba(0,255,231,0.25);
+  box-shadow: 0 0 25px rgba(0,255,231,0.3);
+  transform: translateY(-2px);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-danger {
+  background: linear-gradient(135deg, rgba(255,0,110,0.2), rgba(255,60,60,0.1));
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 14px 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+}
+.btn-danger:hover {
+  background: rgba(255,60,60,0.25);
+  box-shadow: 0 0 25px rgba(255,0,110,0.3);
+}
+.btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
+.response-box {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(0,255,231,0.1);
+  border-radius: 12px;
+  padding: 24px;
+  min-height: 200px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--text);
+  white-space: pre-wrap;
+  position: relative;
+  overflow: hidden;
+}
+.response-box::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  animation: scan-line 3s linear infinite;
+}
+@keyframes scan-line {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+.response-box .loading { color: var(--primary); animation: blink 1s infinite; }
+.typing-cursor {
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: var(--primary);
+  animation: blink 0.7s infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+#viruses-section { padding: 40px; }
+.virus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  max-width: 1400px; margin: 0 auto;
+}
+.virus-card {
+  background: var(--bg2);
+  border: 1px solid rgba(0,255,231,0.1);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.virus-card:hover {
+  border-color: rgba(0,255,231,0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,255,231,0.08);
+}
+.virus-card.critical { border-color: rgba(255,60,60,0.3); }
+.virus-card.critical:hover { border-color: var(--danger); }
+.virus-threat {
+  position: absolute; top: 16px; right: 16px;
+  padding: 4px 10px; border-radius: 4px;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; font-family: 'Orbitron', sans-serif;
+}
+.threat-critical { background: rgba(255,60,60,0.2); color: var(--danger); border: 1px solid rgba(255,60,60,0.4); }
+.threat-high { background: rgba(255,170,0,0.2); color: var(--warn); border: 1px solid rgba(255,170,0,0.4); }
+.threat-medium { background: rgba(0,255,231,0.1); color: var(--primary); border: 1px solid rgba(0,255,231,0.3); }
+.virus-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--primary); margin-bottom: 4px;
+}
+.virus-family { font-size: 0.75rem; color: var(--dim); margin-bottom: 12px; }
+.virus-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.meta-badge {
+  font-size: 0.65rem; padding: 3px 8px; border-radius: 4px;
+  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--dim);
+}
+.virus-desc { font-size: 0.8rem; color: var(--text); line-height: 1.5; margin-bottom: 12px; }
+.antidote-status {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.7rem; letter-spacing: 1px;
+}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot-available { background: var(--success); box-shadow: 0 0 6px var(--success); }
+.dot-research { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+.dot-none { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
+
+#antidote-section { padding: 40px; }
+.antidote-wrap { max-width: 1200px; margin: 0 auto; }
+.pipeline-viz {
+  display: flex; align-items: center; gap: 0;
+  background: var(--bg2);
+  border: 1px solid rgba(0,255,231,0.15);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+.pipeline-stage {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 120px; padding: 0 10px;
+  position: relative;
+}
+.pipeline-stage + .pipeline-stage::before {
+  content: '→';
+  position: absolute; left: -10px;
+  color: var(--dim); font-size: 1.2rem;
+}
+.stage-icon {
+  width: 50px; height: 50px; border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  border: 2px solid var(--dim);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; margin-bottom: 8px;
+  transition: all 0.3s;
+}
+.pipeline-stage.active .stage-icon {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(0,255,231,0.3);
+  animation: logo-pulse 2s infinite;
+}
+.pipeline-stage.done .stage-icon {
+  border-color: var(--success);
+  background: rgba(0,255,136,0.1);
+}
+.stage-label {
+  font-size: 0.6rem; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--dim);
+  text-align: center;
+}
+.pipeline-stage.active .stage-label { color: var(--primary); }
+.pipeline-stage.done .stage-label { color: var(--success); }
+
+#biomedicine-section { padding: 40px; }
+.bio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+  max-width: 1200px; margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .bio-grid { grid-template-columns: 1fr; }
+}
+.bio-card {
+  background: var(--bg2);
+  border: 1px solid rgba(123,0,255,0.2);
+  border-radius: 12px;
+  padding: 24px;
+}
+.bio-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem; letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.method-list { list-style: none; }
+.method-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.85rem; color: var(--text);
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.method-list li::before {
+  content: '▹';
+  color: var(--accent);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.hanta-alert {
+  background: linear-gradient(135deg, rgba(255,0,110,0.15), rgba(255,60,60,0.05));
+  border: 2px solid rgba(255,0,110,0.5);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hanta-alert::before {
+  content: 'ALERTE ACTIVE';
+  position: absolute; top: 16px; right: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.6rem; letter-spacing: 3px;
+  color: var(--danger);
+  animation: blink 2s infinite;
+}
+.hanta-alert h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--danger);
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px rgba(255,60,60,0.5);
+}
+
+.section-header {
+  max-width: 1400px; margin: 0 auto 30px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0,255,231,0.1);
+}
+.section-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem; font-weight: 900;
+  color: var(--primary); letter-spacing: 4px;
+  text-shadow: 0 0 20px rgba(0,255,231,0.3);
+}
+.section-header p { color: var(--dim); font-size: 0.85rem; margin-top: 6px; }
+
+.groq-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(255,0,110,0.15), rgba(123,0,255,0.15));
+  border: 1px solid rgba(255,0,110,0.3);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.65rem; letter-spacing: 2px;
+  color: var(--secondary);
+  font-family: 'Orbitron', sans-serif;
+}
+.groq-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--secondary);
+  animation: blink 1.5s infinite;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(0,255,231,0.3); border-radius: 2px; }
+
+.api-status {
+  position: fixed; bottom: 20px; right: 20px;
+  background: rgba(0,0,0,0.8);
+  border: 1px solid rgba(0,255,231,0.3);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--primary);
+  z-index: 1000;
+  display: flex; align-items: center; gap: 8px;
+}
+.api-status.offline { color: var(--danger); border-color: var(--danger); }
+.api-status .status-indicator {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--success);
+  animation: blink 2s infinite;
+}
+.api-status.offline .status-indicator { background: var(--danger); }
+
+.spinner {
+  display: inline-block;
+  width: 20px; height: 20px;
+  border: 2px solid rgba(0,255,231,0.3);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.toast-container {
+  position: fixed; top: 20px; right: 20px;
+  z-index: 2000;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.toast {
+  background: var(--bg2);
+  border: 1px solid rgba(0,255,231,0.3);
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 0.8rem;
+  color: var(--text);
+  animation: slideIn 0.3s ease;
+  max-width: 400px;
+}
+.toast.error { border-color: var(--danger); color: var(--danger); }
+.toast.success { border-color: var(--success); color: var(--success); }
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .header-top { padding: 15px 20px; flex-direction: column; gap: 15px; }
+  .logo-text h1 { font-size: 1.2rem; }
+  nav a { padding: 10px 16px; font-size: 0.65rem; }
+  .hero { padding: 30px 20px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  #analysis-section, #viruses-section, #antidote-section, #biomedicine-section { padding: 20px; }
+  .input-group { grid-template-columns: 1fr; }
+  .viz-container { grid-template-columns: 1fr; height: auto; }
+  .viz-canvas-zone { height: 400px; }
+  .pipeline-viz { flex-direction: column; gap: 20px; }
+  .pipeline-stage + .pipeline-stage::before { content: '↓'; left: 50%; top: -20px; transform: translateX(-50%); }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-particles" id="particles"></div>
+<div class="toast-container" id="toast-container"></div>
+
+<header>
+  <div class="header-top">
+    <div class="logo-zone">
+      <div class="logo-icon">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#00ffe7" stroke-width="1.5" opacity="0.4"/>
+          <circle cx="30" cy="30" r="20" stroke="#00ffe7" stroke-width="1" opacity="0.6"/>
+          <path d="M30 10 L30 50 M10 30 L50 30" stroke="#00ffe7" stroke-width="1" opacity="0.4"/>
+          <circle cx="30" cy="30" r="6" fill="#00ffe7" opacity="0.8"/>
+          <path d="M22 22 Q30 14 38 22 Q46 30 38 38 Q30 46 22 38 Q14 30 22 22Z" stroke="#ff006e" stroke-width="1.5" fill="none" opacity="0.7"/>
+          <circle cx="20" cy="20" r="3" fill="#7b00ff" opacity="0.6"/>
+          <circle cx="40" cy="20" r="3" fill="#7b00ff" opacity="0.6"/>
+          <circle cx="20" cy="40" r="3" fill="#7b00ff" opacity="0.6"/>
+          <circle cx="40" cy="40" r="3" fill="#7b00ff" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h1>ANTIDOTE MISSION</h1>
+        <div class="tagline">Plateforme Futuriste de Bio-Défense &amp; Médecine V3</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div class="groq-badge"><div class="groq-dot"></div>PROPULSÉ PAR GROQ AI</div>
+      <div class="founded-by">
+        FONDÉE PAR<br>
+        <strong>KHEDIM BENYAKHLEF</strong>
+        <span style="color:var(--secondary);font-size:0.65rem;">DIT BENY-JOE</span>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <a class="active" onclick="showSection('dashboard', this)">⬡ TABLEAU DE BORD</a>
+    <a onclick="showSection('visualization', this)">🔬 MICROSCOPE IA</a>
+    <a onclick="showSection('analysis', this)">⚡ ANALYSE VIRUS</a>
+    <a onclick="showSection('viruses', this)">🦠 BASE VIRUS</a>
+    <a onclick="showSection('antidote', this)">💉 CONCEPTEUR</a>
+    <a onclick="showSection('biomedicine', this)">🧬 BIO-MÉDECINE</a>
+    <a onclick="showSection('hantavirus', this)" style="color:var(--danger);animation:blink 2s infinite;">⚠ HANTAVIRUS</a>
+  </nav>
+</header>
+
+<div class="api-status" id="api-status">
+  <div class="status-indicator"></div>
+  <span id="api-status-text">API: Vérification...</span>
+</div>
+
+<!-- DASHBOARD -->
+<div class="section active" id="dashboard">
+  <div class="hero">
+    <div class="section-header">
+      <h2>TABLEAU DE BORD GLOBAL</h2>
+      <p>Surveillance en temps réel · Analyse biologique · Conception d'antidotes · Bio-médecine avancée</p>
+    </div>
+
+    <div class="alert-banner">
+      <div class="alert-dot"></div>
+      <div>
+        <strong style="color:var(--danger);font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:2px;">ALERTE NIVEAU ROUGE — HANTAVIRUS ANDES (MV HONDIUS, MAI 2026)</strong>
+        <div style="font-size:0.8rem;color:var(--text);margin-top:4px;">11 cas confirmés · 3 décès · Aucun vaccin disponible · Recherche d'antidote en cours · Cliquez sur l'onglet HANTAVIRUS pour l'analyse complète</div>
+      </div>
+    </div>
+
+    <div class="hero-grid">
+      <div class="stat-card danger">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Décès Confirmés</div>
+        <div class="stat-sub">Hantavirus Andes · Croisière MV Hondius · Mai 2026</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="stat-num">11</div>
+        <div class="stat-label">Cas Actifs Connus</div>
+        <div class="stat-sub">9 confirmés + 2 suspects · 23 nationalités exposées</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Mécanismes Analysés</div>
+        <div class="stat-sub">Apoptose, Nécrose, Autophagie, Torin1, mTOR, PUMA, Prions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">164</div>
+        <div class="stat-label">Pages de Recherche</div>
+        <div class="stat-sub">Ouvrage KHEDIM BENYAKHLEF — L'AutoDestruction des Cellules Cancéreuses</div>
+      </div>
+      <div class="stat-card accent">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Antidotes Concevables</div>
+        <div class="stat-sub">IA générative · mRNA · Anticorps monoclonaux · Nanotechnologie</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Voies de Destruction</div>
+        <div class="stat-sub">Apoptose · Nécrose · Autophagie · Radiations · Immunothérapie · Nano</div>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit, minmax(400px, 1fr));gap:20px;">
+      <div class="analyzer-box">
+        <h2>📚 LIVRES DE RÉFÉRENCE INTÉGRÉS</h2>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:16px;border-left:3px solid var(--primary);">
+            <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--primary);letter-spacing:2px;">LIVRE 1 — PDF</div>
+            <div style="font-weight:700;margin:6px 0;color:var(--text);">L'AutoDestruction des Cellules Cancéreuses</div>
+            <div style="font-size:0.75rem;color:var(--dim);">Par KHEDIM BENYAKHLEF (BENY-JOE) · 164 pages · Foxit PDF 2025<br>
+            Chimiothérapie · Immunothérapie · Thérapie génique · PUMA · p53 · Torin1 · mTOR · Apoptose · Nanomédecine</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:16px;border-left:3px solid var(--secondary);">
+            <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--secondary);letter-spacing:2px;">LIVRE 2 — DOCX</div>
+            <div style="font-weight:700;margin:6px 0;color:var(--text);">Vengense — Autodestruction Cellulaire Science &amp; Fiction</div>
+            <div style="font-size:0.75rem;color:var(--dim);">Par KHEDIM BENYAKHLEF (BENY-JOE) · Torin1 · Inhibiteurs mTOR · Prions · Kuru<br>
+            Contagion artificielle · Exosomes · CRISPR · Zombie prionique · Cas narratifs</div>
+          </div>
+        </div>
+      </div>
+      <div class="analyzer-box">
+        <h2>🚀 CAPACITÉS DE LA PLATEFORME V3</h2>
+        <ul class="method-list">
+          <li>Analyse biologique complète via API Groq AI avec rotation multi-modèles</li>
+          <li>Conception d'antidotes et vaccins par IA (mRNA, anticorps, nano, CRISPR)</li>
+          <li>Visualisation microscopique animée : cellule → virus → antidote</li>
+          <li>Recommandations bio-médecine basées sur les ouvrages de BENY-JOE</li>
+          <li>Protocoles de traitement pour maladies considérées incurables</li>
+          <li>Surveillance des épidémies mondiales en temps réel</li>
+          <li>Conception de vaccins pour virus futurs encore inconnus</li>
+          <li>Intégration CRISPR, nanomédecine, immunothérapie avancée</li>
+          <li><strong style="color:var(--primary);">Rotation automatique des modèles Groq pour max tokens</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VISUALIZATION / MICROSCOPE -->
+<div class="section" id="visualization">
+  <div class="viz-container">
+    <div class="viz-canvas-zone">
+      <canvas id="microCanvas"></canvas>
+      <div class="viz-hud">
+        <div class="hud-badge" id="hud-zoom">GROSSISSEMENT: 1000x</div>
+        <div class="hud-badge" id="hud-mode">MODE: CELLULE SAINE</div>
+        <div class="hud-badge" id="hud-phase">PHASE: OBSERVATION</div>
+        <div class="hud-badge" style="color:var(--success)" id="hud-status">● SYSTÈME ACTIF</div>
+      </div>
+      <div class="viz-controls">
+        <button class="viz-btn active" id="btn-cell" onclick="setVizMode('cell')">CELLULE</button>
+        <button class="viz-btn" id="btn-virus" onclick="setVizMode('virus')">VIRUS</button>
+        <button class="viz-btn" id="btn-attack" onclick="setVizMode('attack')">ATTAQUE VIRALE</button>
+        <button class="viz-btn" id="btn-antidote" onclick="setVizMode('antidote')">ANTIDOTE</button>
+        <button class="viz-btn" id="btn-apoptosis" onclick="setVizMode('apoptosis')">APOPTOSE</button>
+        <button class="viz-btn" id="btn-mtor" onclick="setVizMode('mtor')">TORIN1/mTOR</button>
+      </div>
+    </div>
+    <div class="viz-panel">
+      <h3>🔬 PROCESSUS EN COURS</h3>
+      <div id="process-steps"></div>
+      <h3 style="margin-top:20px;">📖 RÉFÉRENCE SCIENTIFIQUE</h3>
+      <div id="sci-ref" style="font-size:0.75rem;color:var(--dim);line-height:1.8;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;font-family:'Share Tech Mono',monospace;">
+        Sélectionnez un mode de visualisation pour afficher la référence scientifique correspondante tirée des ouvrages de KHEDIM BENYAKHLEF.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSIS ENGINE -->
+<div class="section" id="analysis">
+  <div id="analysis-section">
+    <div class="analysis-wrap">
+      <div class="section-header">
+        <h2>⚡ MOTEUR D'ANALYSE VIROLOGIQUE</h2>
+        <p>Propulsé par Groq AI · Rotation Multi-Modèles · Basé sur les recherches de KHEDIM BENYAKHLEF</p>
+      </div>
+      <div class="analyzer-box">
+        <h2>ANALYSER UN VIRUS OU UNE MALADIE</h2>
+        <div class="input-group">
+          <div>
+            <div class="field-label">Nom du Virus / Pathogène</div>
+            <input type="text" id="virus-name" placeholder="Ex: Hantavirus Andes, SARS-CoV-2, Ebola..." />
+          </div>
+          <div>
+            <div class="field-label">Type d'Analyse</div>
+            <select id="analysis-type">
+              <option value="full">Analyse Complète</option>
+              <option value="antidote">Conception d'Antidote</option>
+              <option value="vaccine">Développement de Vaccin</option>
+              <option value="treatment">Protocole de Traitement</option>
+              <option value="biomedicine">Bio-Médecine Naturelle</option>
+              <option value="mechanism">Mécanisme Biologique</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Urgence</div>
+            <select id="urgency">
+              <option value="critical">🔴 Critique — Épidémie Active</option>
+              <option value="high">🟠 Haute — Menace Émergente</option>
+              <option value="medium">🟡 Moyenne — Recherche Préventive</option>
+              <option value="low">🟢 Basse — Étude Académique</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Approche Thérapeutique</div>
+            <select id="approach">
+              <option value="all">Toutes Approches</option>
+              <option value="mrna">Vaccin mRNA</option>
+              <option value="antibody">Anticorps Monoclonaux</option>
+              <option value="nano">Nanomédecine</option>
+              <option value="gene">Thérapie Génique CRISPR</option>
+              <option value="natural">Bio-Médecine Naturelle</option>
+              <option value="torin">Torin1 / mTOR</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="field-label">Symptômes ou Informations Supplémentaires (optionnel)</div>
+          <textarea id="symptoms" placeholder="Décrivez les symptômes observés, l'état du patient, les résistances connues..."></textarea>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:20px;flex-wrap:wrap;">
+          <button class="btn-primary" id="btn-analyze" onclick="runAnalysis()">
+            <span id="analyze-text">⚡ LANCER L'ANALYSE IA</span>
+          </button>
+          <button class="btn-danger" id="btn-emergency" onclick="runEmergencyProtocol()">
+            <span id="emergency-text">🚨 PROTOCOLE D'URGENCE</span>
+          </button>
+          <button style="background:rgba(123,0,255,0.15);border:1px solid var(--accent);color:var(--accent);padding:14px 28px;border-radius:8px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;" id="btn-design" onclick="designAntidote()">
+            <span id="design-text">💉 CONCEVOIR ANTIDOTE</span>
+          </button>
+        </div>
+      </div>
+      <div class="analyzer-box" id="result-box" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+          <h2>📋 RÉSULTATS DE L'ANALYSE</h2>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <div class="groq-badge"><div class="groq-dot"></div>GROQ AI ACTIF</div>
+            <span id="model-used" style="font-size:0.65rem;color:var(--dim);font-family:'Share Tech Mono',monospace;"></span>
+            <span id="tokens-used" style="font-size:0.65rem;color:var(--dim);font-family:'Share Tech Mono',monospace;"></span>
+          </div>
+        </div>
+        <div class="response-box" id="analysis-result"></div>
+        <div class="progress-bar" style="margin-top:12px;"><div class="progress-fill" id="analysis-progress" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIRUSES DATABASE -->
+<div class="section" id="viruses">
+  <div id="viruses-section">
+    <div class="section-header">
+      <h2>🦠 BASE DE DONNÉES VIROLOGIQUES</h2>
+      <p>Virus connus · Mécanismes · Antidotes disponibles · Statut de recherche</p>
+    </div>
+    <div class="virus-grid" id="virus-grid"></div>
+  </div>
+</div>
+
+<!-- ANTIDOTE DESIGNER -->
+<div class="section" id="antidote">
+  <div id="antidote-section">
+    <div class="antidote-wrap">
+      <div class="section-header">
+        <h2>💉 CONCEPTEUR D'ANTIDOTES &amp; VACCINS</h2>
+        <p>Conception assistée par IA · Protocoles moléculaires · Stratégies thérapeutiques</p>
+      </div>
+      <div class="pipeline-viz" id="pipeline"></div>
+      <div class="analyzer-box">
+        <h2>PARAMÈTRES DE CONCEPTION</h2>
+        <div class="input-group">
+          <div>
+            <div class="field-label">Cible Virale</div>
+            <input type="text" id="target-virus" placeholder="Virus cible..." />
+          </div>
+          <div>
+            <div class="field-label">Type de Solution</div>
+            <select id="solution-type">
+              <option value="vaccine">Vaccin Préventif</option>
+              <option value="antidote">Antidote Curatif</option>
+              <option value="immunotherapy">Immunothérapie</option>
+              <option value="gene_therapy">Thérapie Génique</option>
+              <option value="nano_medicine">Nano-Médecine</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Technologie</div>
+            <select id="tech-type">
+              <option value="mrna">mRNA (Moderna/Pfizer style)</option>
+              <option value="viral_vector">Vecteur Viral (AstraZeneca style)</option>
+              <option value="protein_subunit">Sous-unité Protéique</option>
+              <option value="crispr">CRISPR-Cas9</option>
+              <option value="nanoparticle">Nanoparticules + Torin1</option>
+              <option value="antibody">Anticorps Monoclonaux</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Population Cible</div>
+            <select id="population">
+              <option value="adults">Adultes (18-65)</option>
+              <option value="all">Tous Ages</option>
+              <option value="immunocompromised">Immunodéprimés</option>
+              <option value="children">Enfants</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary" id="btn-pipeline" onclick="designAntidotePipeline()">
+          <span id="pipeline-text">🧬 CONCEVOIR LA SOLUTION</span>
+        </button>
+      </div>
+      <div class="analyzer-box" id="antidote-result-box" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+          <h2>🧪 PROTOCOLE DE CONCEPTION</h2>
+          <div class="groq-badge"><div class="groq-dot"></div>GROQ AI ACTIF</div>
+        </div>
+        <div class="response-box" id="antidote-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BIOMEDICINE -->
+<div class="section" id="biomedicine">
+  <div id="biomedicine-section">
+    <div class="section-header">
+      <h2>🧬 BIO-MÉDECINE AVANCÉE</h2>
+      <p>Méthodes basées sur les ouvrages de KHEDIM BENYAKHLEF · Thérapies naturelles &amp; ciblées</p>
+    </div>
+    <div class="bio-grid">
+      <div class="bio-card">
+        <h3>💊 VOIES DE DESTRUCTION CELLULAIRE (BENY-JOE)</h3>
+        <ul class="method-list">
+          <li><strong>Apoptose</strong> — Mort cellulaire programmée via p53/PUMA. Réactivation dans cellules cancéreuses résistantes.</li>
+          <li><strong>Autophagie Excessive</strong> — Torin1 inhibe mTORC1+mTORC2 → accumulation autophagosomes → autodestruction ciblée.</li>
+          <li><strong>Nécrose Contrôlée</strong> — Induction par chocs thermiques, radiations ciblées, agents chimiques.</li>
+          <li><strong>Immunothérapie</strong> — Anticorps monoclonaux anti-Bcl-2 · Inhibiteurs de checkpoints immunitaires.</li>
+          <li><strong>Nanotechnologie</strong> — Nanoparticules porteuses de Torin1 ou PUMA directement dans la cellule cible.</li>
+          <li><strong>Thérapie Génique</strong> — CRISPR-Cas9 pour modifier les gènes de survie des cellules cancéreuses.</li>
+        </ul>
+      </div>
+      <div class="bio-card">
+        <h3>🧪 MOLÉCULES CLÉS IDENTIFIÉES</h3>
+        <ul class="method-list">
+          <li><strong>Torin1</strong> — Inhibiteur puissant de mTORC1 &amp; mTORC2. Plus efficace que la rapamycine. Induit autophagie létale.</li>
+          <li><strong>Protéine PUMA</strong> — Déclencheur d'apoptose. Neutralise Bcl-2, active caspases, détruit cellules cancéreuses.</li>
+          <li><strong>p53</strong> — Suppresseur de tumeurs. Active PUMA en réponse aux dommages ADN.</li>
+          <li><strong>Bcl-2</strong> — Cible thérapeutique. Son inhibition force l'apoptose des cellules résistantes.</li>
+          <li><strong>Exosomes</strong> — Vésicules pour transporter le signal d'autodestruction entre cellules (contagion contrôlée).</li>
+          <li><strong>CRISPR-Cas9</strong> — Outil de modification génomique pour rendre les cellules vulnérables au traitement.</li>
+        </ul>
+      </div>
+      <div class="bio-card">
+        <h3>🌿 BIO-MÉDECINE NATURELLE &amp; INTÉGRATIVE</h3>
+        <ul class="method-list">
+          <li><strong>Curcumine</strong> — Active p53, inhibe NF-κB, induit apoptose dans cellules tumorales. Anti-viral documenté.</li>
+          <li><strong>Quercétine</strong> — Flavonoïde anti-viral naturel. Inhibe réplication virale, renforce immunité innée.</li>
+          <li><strong>Resvératrol</strong> — Active SIRT1, protège mitochondries, potentialise effets de Torin1.</li>
+          <li><strong>Jeûne Intermittent</strong> — Induit autophagie saine. Potentialise l'effet des inhibiteurs mTOR.</li>
+          <li><strong>Vitamine D3 + K2</strong> — Module expression génique anti-tumorale, renforce réponse immunitaire virale.</li>
+          <li><strong>Zinc + Sélénium</strong> — Co-facteurs essentiels des enzymes anti-oxydantes et de la réponse immune.</li>
+        </ul>
+      </div>
+      <div class="bio-card">
+        <h3>🔮 STRATÉGIES FUTURES (RECHERCHE AVANCÉE)</h3>
+        <ul class="method-list">
+          <li><strong>Virus Oncolytiques</strong> — Virus génétiquement modifiés qui infectent et détruisent uniquement les cellules cancéreuses.</li>
+          <li><strong>CAR-T Cell Therapy</strong> — Lymphocytes T reprogrammés pour reconnaître et éliminer des cibles spécifiques.</li>
+          <li><strong>Prion Thérapeutique</strong> — Exploitation contrôlée du mécanisme prionique pour cibler des protéines mal repliées.</li>
+          <li><strong>IA Moléculaire</strong> — AlphaFold + IA générative pour concevoir des protéines thérapeutiques sur mesure.</li>
+          <li><strong>Nano-Robots</strong> — Robots sub-cellulaires capables de percer la membrane virale et injecter des agents destructeurs.</li>
+          <li><strong>Exosome Engineering</strong> — Exosomes modifiés pour livrer siRNA ou CRISPR directement dans les cellules infectées.</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:24px;">
+      <div class="analyzer-box">
+        <h2>🤖 CONSULTATION BIO-MÉDECINE IA</h2>
+        <textarea id="bio-query" placeholder="Posez votre question sur la bio-médecine, un protocole de traitement, une maladie considérée incurable..." style="margin-bottom:16px;"></textarea>
+        <button class="btn-primary" id="btn-bio" onclick="consultBioMedicine()">
+          <span id="bio-text">🧬 CONSULTER L'IA</span>
+        </button>
+        <div class="response-box" id="bio-result" style="margin-top:16px;display:none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HANTAVIRUS SPECIAL PAGE -->
+<div class="section" id="hantavirus">
+  <div style="padding:40px;max-width:1200px;margin:0 auto;">
+    <div class="hanta-alert">
+      <h2>🔴 HANTAVIRUS ANDES — ÉPIDÉMIE ACTIVE 2026</h2>
+      <div style="font-size:0.85rem;color:var(--text);margin-bottom:16px;">Croisière MV Hondius · Départ Ushuaia, Argentine · Avril 2026 · Arrivée Îles Canaries</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;margin-bottom:20px;">
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--danger);">11</div>
+          <div style="font-size:0.65rem;color:var(--dim);letter-spacing:2px;">CAS CONFIRMÉS</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--danger);">3</div>
+          <div style="font-size:0.65rem;color:var(--dim);letter-spacing:2px;">DÉCÈS</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--warn);">147</div>
+          <div style="font-size:0.65rem;color:var(--dim);letter-spacing:2px;">EXPOSÉS</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--warn);">23</div>
+          <div style="font-size:0.65rem;color:var(--dim);letter-spacing:2px;">NATIONALITÉS</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(400px, 1fr));gap:20px;margin-bottom:24px;">
+      <div class="analyzer-box">
+        <h2>🦠 PROFIL VIROLOGIQUE — HANTAVIRUS ANDES</h2>
+        <ul class="method-list">
+          <li><strong>Famille :</strong> Hantaviridae · Bunyaviridae</li>
+          <li><strong>Génome :</strong> ARN simple brin segmenté (S, M, L segments)</li>
+          <li><strong>Transmission :</strong> Inhalation aérosols de rongeurs infectés + Contact interpersonnel (unique à Andes)</li>
+          <li><strong>Période incubation :</strong> 9 à 33 jours</li>
+          <li><strong>Syndrome :</strong> Hantavirus Pulmonary Syndrome (HPS) — Syndrome Cardiopulmonaire à Hantavirus</li>
+          <li><strong>Mortalité :</strong> 30-40% sans traitement intensif</li>
+          <li><strong>Porteur :</strong> Oligoryzomys longicaudatus (rat à longue queue d'Amérique du Sud)</li>
+          <li><strong>Statut vaccin :</strong> ❌ AUCUN VACCIN APPROUVÉ (Université de Bath — mRNA en développement)</li>
+        </ul>
+      </div>
+      <div class="analyzer-box">
+        <h2>⚕️ TRAITEMENT ACTUEL (SOINS DE SOUTIEN)</h2>
+        <ul class="method-list">
+          <li><strong>Repos + Hydratation</strong> — Support de base pour les cas légers à modérés</li>
+          <li><strong>ECMO</strong> — Oxygénation par membrane extracorporelle pour défaillance cardiopulmonaire</li>
+          <li><strong>Intubation</strong> — Ventilation mécanique si détresse respiratoire sévère</li>
+          <li><strong>Ribavirine</strong> — Antivirale (efficacité limitée sur Andes vs HFRS)</li>
+          <li><strong>Anticorps humains</strong> — Recherche Colorado State University (Schountz) — Stade animal</li>
+          <li><strong>mRNA Vaccine</strong> — Université de Bath UK — En développement accéléré post-épidémie 2026</li>
+          <li><strong>Facteur temps :</strong> L'infectivité est maximale au début des symptômes → isolation immédiate critique</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="analyzer-box">
+      <h2>🧬 PROPOSITION D'ANTIDOTE/VACCIN — CONCEPTION IA (KHEDIM BENYAKHLEF METHOD)</h2>
+      <div style="background:rgba(0,255,231,0.05);border:1px solid rgba(0,255,231,0.2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--primary);letter-spacing:2px;margin-bottom:12px;">PROTOCOLE ANTIDOTE PROPOSÉ — HANTAVIRUS ANDES 2026</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;line-height:2;color:var(--text);">
+          <span style="color:var(--primary);">TARGET :</span> Glycoprotéines Gn/Gc de l'enveloppe du virus Andes<br>
+          <span style="color:var(--primary);">APPROCHE 1 [mRNA] :</span> Vaccin mRNA encodant Gn/Gc → anticorps neutralisants → bloquer entrée cellulaire<br>
+          <span style="color:var(--primary);">APPROCHE 2 [Anticorps] :</span> Anticorps monoclonaux humains isolés (méthode Schountz) → administration thérapeutique curative<br>
+          <span style="color:var(--primary);">APPROCHE 3 [Nano] :</span> Nanoparticules + siRNA contre ARN viral → inhibition réplication intracellulaire<br>
+          <span style="color:var(--primary);">APPROCHE 4 [CRISPR] :</span> CRISPR-Cas13 (ciblage ARN) → dégradation directe du génome viral<br>
+          <span style="color:var(--primary);">APPROCHE 5 [BIO] :</span> Quercétine + Zinc → renforcement IFN-α/β → réponse interféron augmentée<br>
+          <span style="color:var(--primary);">APOPTOSE CELLULAIRE :</span> Déclencher apoptose sélective des cellules pulmonaires infectées via PUMA (méthode BENY-JOE)<br>
+          <span style="color:var(--primary);">TORIN1 :</span> Inhibition mTOR dans cellules infectées → réduction réplication virale par autophagie excessive<br>
+          <span style="color:var(--warn);">STATUT :</span> Conception théorique avancée · Validation expérimentale requise · Urgence de financement<br>
+          <span style="color:var(--success);">PERSPECTIVE :</span> Université de Bath (mRNA) · 6-18 mois pour essais cliniques Phase I
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-hanta" onclick="generateHantaAntidote()">
+        <span id="hanta-text">⚡ GÉNÉRER PROTOCOLE COMPLET PAR IA</span>
+      </button>
+      <div class="response-box" id="hanta-result" style="margin-top:16px;display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = window.location.origin + '/api';
+
+function showSection(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (el) el.classList.add('active');
+  if (id === 'visualization') initCanvas();
+}
+
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 5000);
+}
+
+async function checkApiStatus() {
+  try {
+    const response = await fetch(`${API_BASE}/health`);
+    const data = await response.json();
+    const statusEl = document.getElementById('api-status');
+    const textEl = document.getElementById('api-status-text');
+    if (data.status === 'OK') {
+      statusEl.classList.remove('offline');
+      textEl.textContent = `API: ${data.ai_engine} | v${data.version}`;
+    } else {
+      statusEl.classList.add('offline');
+      textEl.textContent = 'API: Hors ligne';
+    }
+  } catch (e) {
+    document.getElementById('api-status').classList.add('offline');
+    document.getElementById('api-status-text').textContent = 'API: Non connectée';
+  }
+}
+
+checkApiStatus();
+setInterval(checkApiStatus, 30000);
+
+(function() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 15) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+    if (Math.random() > 0.7) p.style.background = '#ff006e';
+    if (Math.random() > 0.85) p.style.background = '#7b00ff';
+    container.appendChild(p);
+  }
+})();
+
+const viruses = [
+  { name: 'Hantavirus Andes', family: 'Hantaviridae', threat: 'critical', transmission: 'Aérosols + Contact', mortality: '30-40%', antidote: 'none', desc: 'Cause le Syndrome Cardiopulmonaire à Hantavirus. ÉPIDÉMIE ACTIVE mai 2026 sur MV Hondius. Unique hantavirus à transmission interpersonnelle.', badges: ['ARN', 'Amérique Sud', 'Rongeurs'] },
+  { name: 'Ebola (Zaïre)', family: 'Filoviridae', threat: 'critical', transmission: 'Fluides corporels', mortality: '50-90%', antidote: 'research', desc: 'Virus hémorragique viral. Vaccin Ervebo approuvé FDA 2019. Anticorps monoclonaux Zmapp partiellement efficaces.', badges: ['ARN', 'Afrique', 'BSL-4'] },
+  { name: 'SARS-CoV-2', family: 'Coronaviridae', threat: 'high', transmission: 'Aérosols', mortality: '1-5%', antidote: 'available', desc: 'Vaccins mRNA (Pfizer/Moderna), antiviraux Paxlovid. Mécanisme apoptose étudié selon méthode BENY-JOE.', badges: ['ARN', 'Mondial', 'Spike'] },
+  { name: 'HIV-1', family: 'Retroviridae', threat: 'high', transmission: 'Sang/Sexuel', mortality: 'Variable', antidote: 'research', desc: 'Aucun vaccin approuvé mais ARV efficaces. Pistes vaccin mRNA actives. Cible: enveloppe gp120/gp41.', badges: ['ARN', 'Rétrovirus', 'CD4+'] },
+  { name: 'Marburg', family: 'Filoviridae', threat: 'critical', transmission: 'Fluides corporels', mortality: '20-90%', antidote: 'research', desc: 'Proche Ebola. Vaccin en essai clinique. Anticorps monoclonaux MR186-YTE prometteurs.', badges: ['ARN', 'Afrique', 'Chauve-souris'] },
+  { name: 'Nipah', family: 'Paramyxoviridae', threat: 'critical', transmission: 'Chauve-souris/Porc', mortality: '40-75%', antidote: 'research', desc: 'Potentiel pandémique. Vaccin candidat en Phase II. Anticorps m102.4 efficaces en préventif.', badges: ['ARN', 'Asie', 'BSL-4'] },
+  { name: 'Influenza H5N1', family: 'Orthomyxoviridae', threat: 'high', transmission: 'Volailles/Aérosols', mortality: '50-60%', antidote: 'available', desc: 'Grippe aviaire. Vaccins stockés, Tamiflu actif. Surveillance permanente pour mutation pandémique.', badges: ['ARN', 'Aviaire', 'H5N1'] },
+  { name: 'Prions (Kuru/CJD)', family: 'Prionidae', threat: 'high', transmission: 'Contact/Ingestion', mortality: '100%', antidote: 'none', desc: 'Maladies à prions (étude BENY-JOE). Zombification prionique. Aucun traitement. Recherche CRISPR-Cas9 expérimentale.', badges: ['Protéine', 'Cerveau', 'Prion'] },
+  { name: 'Dengue DENV', family: 'Flaviviridae', threat: 'medium', transmission: 'Moustiques', mortality: '1-5%', antidote: 'available', desc: 'Vaccin Dengvaxia (controversé). Anticorps neutralisants. Bio-médecine: Quercétine + Vitamine C.', badges: ['ARN', 'Tropiques', 'Ae. aegypti'] },
+];
+
+function renderVirusGrid() {
+  const grid = document.getElementById('virus-grid');
+  grid.innerHTML = viruses.map(v => `
+    <div class="virus-card ${v.threat === 'critical' ? 'critical' : ''}">
+      <div class="virus-threat threat-${v.threat}">${v.threat === 'critical' ? '⚠ CRITIQUE' : v.threat === 'high' ? '⬆ HAUTE' : '● MOYEN'}</div>
+      <div class="virus-name">${v.name}</div>
+      <div class="virus-family">${v.family}</div>
+      <div class="virus-meta">
+        ${v.badges.map(b => `<span class="meta-badge">${b}</span>`).join('')}
+        <span class="meta-badge" style="color:var(--danger);">Mortalité: ${v.mortality}</span>
+      </div>
+      <div class="virus-desc">${v.desc}</div>
+      <div class="antidote-status">
+        <div class="status-dot ${v.antidote === 'available' ? 'dot-available' : v.antidote === 'research' ? 'dot-research' : 'dot-none'}"></div>
+        <span style="color:${v.antidote === 'available' ? 'var(--success)' : v.antidote === 'research' ? 'var(--warn)' : 'var(--danger)'};">
+          ${v.antidote === 'available' ? 'Antidote/Vaccin Disponible' : v.antidote === 'research' ? 'En Recherche Active' : 'Aucun Traitement Spécifique'}
+        </span>
+      </div>
+    </div>
+  `).join('');
+}
+renderVirusGrid();
+
+function renderPipeline() {
+  const stages = [
+    { icon: '🔍', label: 'DÉTECTION', state: 'done' },
+    { icon: '🦠', label: 'SÉQUENÇAGE', state: 'done' },
+    { icon: '🧬', label: 'ANALYSE ADN/ARN', state: 'active' },
+    { icon: '⚗️', label: 'CIBLE MOLÉCULAIRE', state: '' },
+    { icon: '💉', label: 'CONCEPTION', state: '' },
+    { icon: '🧪', label: 'SIMULATION', state: '' },
+    { icon: '🐁', label: 'TEST ANIMAL', state: '' },
+    { icon: '👤', label: 'ESSAI CLINIQUE', state: '' },
+    { icon: '✅', label: 'APPROBATION', state: '' },
+  ];
+  document.getElementById('pipeline').innerHTML = stages.map(s => `
+    <div class="pipeline-stage ${s.state}">
+      <div class="stage-icon">${s.icon}</div>
+      <div class="stage-label">${s.label}</div>
+    </div>
+  `).join('');
+}
+renderPipeline();
+
+let microMode = 'cell';
+let animFrame = null;
+let canvas, ctx;
+
+const vizModes = {
+  cell: {
+    hud: 'CELLULE SAINE',
+    phase: 'OBSERVATION BASALE',
+    steps: [
+      { label: 'Membrane Cellulaire', desc: 'Bicouche lipidique · Protéines transmembranaires · Échanges ioniques actifs', state: 'active' },
+      { label: 'Noyau & ADN', desc: 'Matériel génétique protégé · Chromatine · Nucléole visible', state: 'active' },
+      { label: 'Mitochondries', desc: 'Organites énergétiques · ATP synthèse · Senseurs apoptotiques', state: 'active' },
+      { label: 'Réticulum Endoplasmique', desc: 'Synthèse protéique · Transport vésiculaire · Maturation protéines', state: 'active' },
+    ],
+    ref: 'BENY-JOE (Livre 1, p.4) :
+"Vie, équilibre, et mort de la cellule — pourquoi tuer une cellule peut sauver un organisme"
+
+La cellule saine maintient un équilibre dynamique entre survie et mort programmée. Le contrôle de l'apoptose est le mécanisme central de la lutte contre le cancer et les infections virales.'
+  },
+  virus: {
+    hud: 'PARTICULE VIRALE',
+    phase: 'IDENTIFICATION MORPHOLOGIQUE',
+    steps: [
+      { label: 'Capside Protéique', desc: 'Enveloppe protéique protectrice · Détermine tropisme cellulaire', state: 'active' },
+      { label: 'Génome Viral', desc: 'ARN/ADN viral · Contient instructions de réplication', state: 'active' },
+      { label: 'Protéines d'Entrée', desc: 'Glycoprotéines Gn/Gc (Hantavirus) · Spike (COVID) · gp120 (HIV)', state: 'active' },
+      { label: 'Enzymes Virales', desc: 'ARN polymérase · Intégrase · Protéase · Cibles thérapeutiques', state: '' },
+    ],
+    ref: 'BENY-JOE (Livre 2, Partie III) :
+"La contagiosité artificielle : fiction ou futur proche ?"
+
+Les virus utilisent leurs glycoprotéines de surface pour se lier aux récepteurs cellulaires. Bloquer cette interaction est la stratégie de base des antidotes modernes (anticorps neutralisants, vaccins mRNA).'
+  },
+  attack: {
+    hud: 'INVASION VIRALE EN COURS',
+    phase: '⚠ ALERTE — INFECTION ACTIVE',
+    steps: [
+      { label: 'Reconnaissance Récepteur', desc: 'Virus se lie au récepteur cellulaire spécifique · Début de l'infection', state: 'active' },
+      { label: 'Fusion Membranaire', desc: 'Fusion enveloppe virale + membrane cellulaire · Pénétration génome', state: 'active' },
+      { label: 'Détournement Cellulaire', desc: 'Génome viral utilise la machinerie cellulaire pour se répliquer', state: 'active' },
+      { label: 'Assemblage Viral', desc: 'Nouveaux virions assemblés · Lyse cellulaire imminente · Propagation', state: 'active' },
+    ],
+    ref: 'BENY-JOE (Livre 1, p.6) :
+"Les cellules cancéreuses désactivent les mécanismes naturels d'apoptose"
+
+De même, les virus détournent la mort cellulaire programmée pour survivre. Hantavirus Andes: inhalation → cellules endothéliales pulmonaires → HPS → détresse respiratoire critique.'
+  },
+  antidote: {
+    hud: 'ANTIDOTE EN ACTION',
+    phase: 'NEUTRALISATION ACTIVE',
+    steps: [
+      { label: 'Reconnaissance Antigène', desc: 'Anticorps identifie la cible virale · Liaison haute affinité', state: 'complete' },
+      { label: 'Neutralisation Virale', desc: 'Anticorps bloque les protéines d'entrée · Virus neutralisé', state: 'active' },
+      { label: 'Élimination Immunitaire', desc: 'Opsonisation · Phagocytose · Destruction du complexe Ag-Ac', state: '' },
+      { label: 'Mémoire Immunitaire', desc: 'Cellules B mémoire · Protection durable · Base du vaccin', state: '' },
+    ],
+    ref: 'BENY-JOE (Livre 1, p.5) :
+"Thérapie ciblée : médicaments qui ciblent spécifiquement les anomalies"
+
+Les anticorps monoclonaux (Colorado State University, 2026) contre Hantavirus fonctionnent exactement sur ce principe : identifier les épitopes de Gn/Gc et les neutraliser avant la pénétration cellulaire.'
+  },
+  apoptosis: {
+    hud: 'APOPTOSE — MORT CELLULAIRE PROGRAMMÉE',
+    phase: 'CASCADE APOPTOTIQUE ACTIVE',
+    steps: [
+      { label: 'Signal Apoptotique', desc: 'Activation p53 → induction PUMA · Dommages ADN détectés', state: 'complete' },
+      { label: 'Neutralisation Bcl-2', desc: 'PUMA neutralise Bcl-2 (anti-apoptotique) · Équilibre basculé vers mort', state: 'active' },
+      { label: 'Activation Caspases', desc: 'Caspase 9 → Caspase 3 · Cascade protéolytique irréversible', state: 'active' },
+      { label: 'Corps Apoptotiques', desc: 'Fragmentation ADN · Formation corps apoptotiques · Phagocytose sans inflammation', state: '' },
+    ],
+    ref: 'BENY-JOE (Livre 1, p.9-11) :
+"PUMA est une protéine pro-apoptotique. Elle neutralise les protéines anti-apoptotiques (comme Bcl-2 et Bcl-XL) qui protègent les cellules cancéreuses de la mort. En inhibant ces protéines, PUMA active les caspases et provoque l'apoptose."
+
+Cette voie est transposable aux cellules infectées par virus → apoptose sélective des cellules infectées.'
+  },
+  mtor: {
+    hud: 'TORIN1 / INHIBITION mTOR',
+    phase: 'AUTOPHAGIE LÉTALE INDUITE',
+    steps: [
+      { label: 'Administration Torin1', desc: 'Nanoparticules livrent Torin1 directement dans la cellule cible', state: 'complete' },
+      { label: 'Blocage mTORC1+mTORC2', desc: 'Inhibition complète des deux complexes mTOR · Plus puissant que Rapamycine', state: 'active' },
+      { label: 'Accumulation Autophagosomes', desc: 'Vésicules d'autophagie s'accumulent massivement · Auto-digestion organites', state: 'active' },
+      { label: 'Mort Cellulaire Autophagique', desc: 'Effondrement cellulaire complet · Mort sans inflammation · Ciblé', state: '' },
+    ],
+    ref: 'BENY-JOE (Livre 2, Partie II) :
+"Torin1 : un déclencheur moléculaire d'autophagie extrême — Inhibition de mTORC1 et mTORC2 — Accumulation d'autophagosomes — Dégradation des organites — Mort cellulaire sans inflammation"
+
+Torin1 est plus puissant que la rapamycine car il inhibe les deux complexes mTOR. Application possible : induire autophagie létale dans cellules infectées par virus sans affecter cellules saines.'
+  }
+};
+
+function setVizMode(mode) {
+  microMode = mode;
+  document.querySelectorAll('.viz-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + mode).classList.add('active');
+  const data = vizModes[mode];
+  document.getElementById('hud-mode').textContent = 'MODE: ' + data.hud;
+  document.getElementById('hud-phase').textContent = 'PHASE: ' + data.phase;
+  document.getElementById('sci-ref').textContent = data.ref;
+  document.getElementById('process-steps').innerHTML = data.steps.map((s, i) => `
+    <div class="process-step ${s.state}">
+      <div class="step-num">${i+1}</div>
+      <div class="step-content"><h4>${s.label}</h4><p>${s.desc}</p></div>
+    </div>
+  `).join('');
+}
+
+let particles_canvas = [];
+function initCanvas() {
+  if (canvas) return;
+  canvas = document.getElementById('microCanvas');
+  canvas.width = canvas.parentElement.offsetWidth;
+  canvas.height = canvas.parentElement.offsetHeight;
+  ctx = canvas.getContext('2d');
+  for (let i = 0; i < 80; i++) {
+    particles_canvas.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random()-0.5)*0.5,
+      vy: (Math.random()-0.5)*0.5,
+      r: Math.random() * 4 + 1,
+      type: Math.floor(Math.random()*3),
+      angle: Math.random()*Math.PI*2,
+      spin: (Math.random()-0.5)*0.02,
+      alpha: 0.3 + Math.random()*0.7
+    });
+  }
+  setVizMode('cell');
+  drawCanvas();
+}
+
+function drawCanvas() {
+  if (!ctx) return;
+  const W = canvas.width, H = canvas.height;
+  const t = Date.now()*0.001;
+  ctx.clearRect(0,0,W,H);
+  const grd = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.min(W,H)*0.6);
+  grd.addColorStop(0, 'rgba(0,15,40,0.6)');
+  grd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,W,H);
+  for (let ring = 1; ring <= 5; ring++) {
+    ctx.beginPath();
+    ctx.arc(W/2, H/2, ring * Math.min(W,H)*0.09, 0, Math.PI*2);
+    ctx.strokeStyle = `rgba(0,255,231,${0.04 - ring*0.005})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  if (microMode === 'cell') drawCell(W,H,t);
+  else if (microMode === 'virus') drawViruses(W,H,t);
+  else if (microMode === 'attack') drawAttack(W,H,t);
+  else if (microMode === 'antidote') drawAntidote(W,H,t);
+  else if (microMode === 'apoptosis') drawApoptosis(W,H,t);
+  else if (microMode === 'mtor') drawMTOR(W,H,t);
+  ctx.strokeStyle = 'rgba(0,255,231,0.15)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,H/2); ctx.lineTo(W,H/2); ctx.stroke();
+  animFrame = requestAnimationFrame(drawCanvas);
+}
+
+function drawCell(W,H,t) {
+  const cx = W/2, cy = H/2;
+  ctx.beginPath();
+  for (let i = 0; i <= 60; i++) {
+    const a = (i/60)*Math.PI*2;
+    const r = 200 + Math.sin(a*3+t)*8 + Math.cos(a*5+t*0.7)*5;
+    if (i===0) ctx.moveTo(cx+r*Math.cos(a), cy+r*Math.sin(a));
+    else ctx.lineTo(cx+r*Math.cos(a), cy+r*Math.sin(a));
+  }
+  ctx.closePath();
+  ctx.strokeStyle = `rgba(0,255,231,0.6)`;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(0,255,231,0.03)';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 70 + Math.sin(t)*3, 0, Math.PI*2);
+  ctx.strokeStyle = 'rgba(123,0,255,0.7)';
+  ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = 'rgba(123,0,255,0.08)';
+  ctx.fill();
+  for (let i = 0; i < 5; i++) {
+    const x1 = cx + (i-2)*20 + Math.sin(t+i)*5;
+    ctx.beginPath();
+    for (let y = cy-50; y < cy+50; y += 4) {
+      const x = x1 + Math.sin((y+t*30)*0.15)*12;
+      if (y===cy-50) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = `rgba(255,0,110,0.4)`;
+    ctx.lineWidth = 1; ctx.stroke();
+  }
+  const mito_positions = [[cx-120,cy-80],[cx+100,cy+60],[cx-80,cy+100],[cx+130,cy-50]];
+  mito_positions.forEach(([mx,my]) => {
+    ctx.beginPath();
+    ctx.ellipse(mx+Math.sin(t*0.5)*3, my+Math.cos(t*0.4)*3, 30, 16, Math.sin(t*0.2), 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(255,170,0,0.5)';
+    ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = 'rgba(255,170,0,0.08)'; ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(mx-15, my); ctx.bezierCurveTo(mx-5,my-10,mx+5,my+10,mx+15,my);
+    ctx.strokeStyle = 'rgba(255,170,0,0.3)';
+    ctx.lineWidth = 1; ctx.stroke();
+  });
+}
+
+function drawViruses(W,H,t) {
+  const viruses_pos = [
+    [W/2, H/2, 50], [W/3, H/3, 35], [W*2/3, H/3, 40],
+    [W/3, H*2/3, 38], [W*2/3, H*2/3, 42], [W*0.2,H*0.5,30],
+    [W*0.8,H*0.5,32]
+  ];
+  viruses_pos.forEach(([vx,vy,vr],i) => {
+    const pulse = 1 + Math.sin(t*2+i)*0.1;
+    ctx.beginPath();
+    ctx.arc(vx, vy, vr*pulse, 0, Math.PI*2);
+    ctx.strokeStyle = `rgba(255,0,110,0.7)`;
+    ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = 'rgba(255,0,110,0.08)'; ctx.fill();
+    for (let s = 0; s < 12; s++) {
+      const a = (s/12)*Math.PI*2 + t*0.3;
+      const x1 = vx + vr*pulse*Math.cos(a);
+      const y1 = vy + vr*pulse*Math.sin(a);
+      const x2 = vx + (vr*pulse+15)*Math.cos(a);
+      const y2 = vy + (vr*pulse+15)*Math.sin(a);
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+      ctx.strokeStyle = 'rgba(255,170,0,0.6)';
+      ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x2,y2,3,0,Math.PI*2);
+      ctx.fillStyle = 'rgba(255,170,0,0.8)'; ctx.fill();
+    }
+    ctx.beginPath();
+    ctx.arc(vx,vy,vr*0.4,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(255,0,110,0.3)'; ctx.fill();
+  });
+}
+
+function drawAttack(W,H,t) {
+  const cx = W/2, cy = H/2;
+  drawCell(W,H,t);
+  for (let i = 0; i < 6; i++) {
+    const a = (i/6)*Math.PI*2 + t*0.2;
+    const dist = 250 - (Math.sin(t*0.8+i)*40);
+    const vx = cx + dist*Math.cos(a);
+    const vy = cy + dist*Math.sin(a);
+    ctx.beginPath(); ctx.arc(vx,vy,25,0,Math.PI*2);
+    ctx.strokeStyle = 'rgba(255,60,60,0.8)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = 'rgba(255,60,60,0.1)'; ctx.fill();
+    for (let s = 0; s < 8; s++) {
+      const sa = (s/8)*Math.PI*2;
+      ctx.beginPath();
+      ctx.moveTo(vx+25*Math.cos(sa),vy+25*Math.sin(sa));
+      ctx.lineTo(vx+38*Math.cos(sa),vy+38*Math.sin(sa));
+      ctx.strokeStyle='rgba(255,170,0,0.5)';ctx.lineWidth=1;ctx.stroke();
+    }
+    ctx.beginPath(); ctx.moveTo(vx,vy); ctx.lineTo(cx,cy);
+    ctx.strokeStyle = `rgba(255,60,60,${0.05+Math.sin(t+i)*0.05})`;
+    ctx.lineWidth = 1; ctx.setLineDash([5,10]); ctx.stroke(); ctx.setLineDash([]);
+  }
+  for (let i = 0; i < 5; i++) {
+    const a = t*3+i*1.2;
+    const rx = cx + 200*Math.cos(a);
+    const ry = cy + 200*Math.sin(a);
+    ctx.beginPath(); ctx.arc(rx,ry,5,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,60,60,0.5)';ctx.fill();
+  }
+}
+
+function drawAntidote(W,H,t) {
+  const cx = W/2, cy = H/2;
+  drawCell(W,H,t);
+  for (let i = 0; i < 8; i++) {
+    const a = (i/8)*Math.PI*2 + t*0.5;
+    const r = 180 + Math.sin(t+i)*20;
+    const ax = cx + r*Math.cos(a);
+    const ay = cy + r*Math.sin(a);
+    ctx.beginPath();
+    ctx.moveTo(ax, ay+15);
+    ctx.lineTo(ax, ay);
+    ctx.lineTo(ax-12, ay-10);
+    ctx.moveTo(ax, ay);
+    ctx.lineTo(ax+12, ay-10);
+    ctx.strokeStyle = 'rgba(0,255,136,0.8)';
+    ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(ax-12,ay-10,4,0,Math.PI*2);
+    ctx.arc(ax+12,ay-10,4,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(0,255,136,0.6)'; ctx.fill();
+  }
+  const vx = cx+100, vy = cy-80;
+  ctx.beginPath(); ctx.arc(vx,vy,30,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,60,60,0.3)';ctx.lineWidth=2;ctx.stroke();
+  for (let i = 0; i < 6; i++) {
+    const r = 40+i*8+Math.sin(t*3)*5;
+    ctx.beginPath();ctx.arc(vx,vy,r,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(0,255,136,${0.4-i*0.06})`;ctx.lineWidth=1;ctx.stroke();
+  }
+}
+
+function drawApoptosis(W,H,t) {
+  const cx = W/2, cy = H/2;
+  const progress = (Math.sin(t*0.5)+1)/2;
+  const cellR = 200 - progress*80;
+  ctx.beginPath(); ctx.arc(cx,cy,cellR,0,Math.PI*2);
+  ctx.strokeStyle='rgba(0,255,231,0.3)';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='rgba(0,255,231,0.02)';ctx.fill();
+  for (let i = 0; i < 8; i++) {
+    const a = (i/8)*Math.PI*2+t;
+    const bx = cx + (cellR)*Math.cos(a);
+    const by = cy + (cellR)*Math.sin(a);
+    ctx.beginPath(); ctx.arc(bx,by,20*progress,0,Math.PI*2);
+    ctx.strokeStyle='rgba(255,0,110,0.4)';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='rgba(255,0,110,0.08)';ctx.fill();
+  }
+  ctx.font = 'bold 14px Orbitron'; ctx.fillStyle='rgba(0,255,136,0.8)';
+  ctx.fillText('PUMA', cx-30, cy-20);
+  ctx.font = '11px Share Tech Mono'; ctx.fillStyle='rgba(255,170,0,0.7)';
+  ctx.fillText('p53 ACTIVE', cx-35, cy+10);
+  const cas = ['Casp9', 'Casp3', 'DNA↓'];
+  cas.forEach((c,i) => {
+    ctx.beginPath(); ctx.arc(cx+80, cy-40+i*30, 20,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(255,60,60,${0.3+i*0.2})`;ctx.lineWidth=1.5;ctx.stroke();
+    ctx.font='9px Orbitron';ctx.fillStyle='rgba(255,60,60,0.8)';
+    ctx.fillText(c,cx+68,cy-35+i*30);
+  });
+  for (let i = 0; i < 12; i++) {
+    const a = (i/12)*Math.PI*2+t*0.3;
+    const r = 50+i*8;
+    ctx.beginPath();
+    ctx.arc(cx+r*Math.cos(a),cy+r*Math.sin(a),3,0,Math.PI*2);
+    ctx.fillStyle='rgba(123,0,255,0.5)';ctx.fill();
+  }
+}
+
+function drawMTOR(W,H,t) {
+  const cx = W/2, cy = H/2;
+  ctx.beginPath(); ctx.arc(cx,cy,200,0,Math.PI*2);
+  ctx.strokeStyle='rgba(0,255,231,0.3)';ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,40+Math.sin(t)*5,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,60,60,0.5)';ctx.lineWidth=2;ctx.stroke();
+  ctx.font='9px Orbitron';ctx.fillStyle='rgba(255,60,60,0.8)';
+  ctx.fillText('mTOR',cx-20,cy);
+  ctx.fillText('BLOQUÉ',cx-24,cy+14);
+  for (let i = 0; i < 5; i++) {
+    const a = i*1.2+t;
+    const tx = cx+60*Math.cos(a);
+    const ty = cy+60*Math.sin(a);
+    ctx.beginPath();
+    ctx.moveTo(tx-8,ty);ctx.lineTo(tx+8,ty);
+    ctx.moveTo(tx,ty-8);ctx.lineTo(tx,ty+8);
+    ctx.strokeStyle='rgba(255,216,0,0.8)';ctx.lineWidth=2;ctx.stroke();
+    ctx.beginPath();ctx.arc(tx,ty,2,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,216,0,1)';ctx.fill();
+  }
+  for (let i = 0; i < 12; i++) {
+    const a = (i/12)*Math.PI*2+t*0.2;
+    const r = 100+Math.sin(t*2+i)*20;
+    const ax = cx+r*Math.cos(a);
+    const ay = cy+r*Math.sin(a);
+    ctx.beginPath(); ctx.arc(ax,ay,12+Math.sin(t*3+i)*3,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(123,0,255,${0.4+i*0.04})`;ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='rgba(123,0,255,0.1)';ctx.fill();
+    ctx.beginPath(); ctx.arc(ax,ay,6,0,Math.PI*2);
+    ctx.strokeStyle='rgba(123,0,255,0.6)';ctx.lineWidth=1;ctx.stroke();
+  }
+  ctx.font='11px Rajdhani';ctx.fillStyle='rgba(123,0,255,0.8)';
+  ctx.fillText('AUTOPHAGOSOMES',cx+120,cy+80);
+  ctx.font='9px Share Tech Mono';ctx.fillStyle='rgba(0,255,231,0.6)';
+  ctx.fillText('TORIN1 + AUTOPHAGIE LÉTALE',cx-100,H-40);
+}
+
+function setLoading(btnId, textId, loadingText) {
+  const btn = document.getElementById(btnId);
+  const text = document.getElementById(textId);
+  btn.disabled = true;
+  text.innerHTML = `<span class="spinner"></span> ${loadingText}`;
+}
+
+function resetLoading(btnId, textId, originalText) {
+  const btn = document.getElementById(btnId);
+  const text = document.getElementById(textId);
+  btn.disabled = false;
+  text.textContent = originalText;
+}
+
+function typeWriter(el, text, speed=15) {
+  el.textContent = '';
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'typing-cursor';
+  el.appendChild(cursor);
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+    } else {
+      clearInterval(interval);
+      cursor.remove();
+    }
+  }, speed);
+}
+
+async function runAnalysis() {
+  const virusName = document.getElementById('virus-name').value || 'Hantavirus Andes';
+  const type = document.getElementById('analysis-type').value;
+  const urgency = document.getElementById('urgency').value;
+  const approach = document.getElementById('approach').value;
+  const symptoms = document.getElementById('symptoms').value;
+
+  setLoading('btn-analyze', 'analyze-text', 'ANALYSE EN COURS...');
+
+  const resultBox = document.getElementById('result-box');
+  const resultEl = document.getElementById('analysis-result');
+  const progressEl = document.getElementById('analysis-progress');
+  const modelUsedEl = document.getElementById('model-used');
+  const tokensUsedEl = document.getElementById('tokens-used');
+
+  resultBox.style.display = 'block';
+  resultEl.innerHTML = '<span class="loading">⚡ ANALYSE EN COURS... GROQ IA ACTIF...</span>';
+  progressEl.style.width = '30%';
+
+  try {
+    const response = await fetch(`${API_BASE}/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ virusName, analysisType: type, urgency, approach, symptoms })
+    });
+
+    const data = await response.json();
+    progressEl.style.width = '100%';
+
+    if (data.success) {
+      modelUsedEl.textContent = `Modèle: ${data.data.model || 'N/A'}`;
+      tokensUsedEl.textContent = data.data.tokensUsed ? `Tokens: ${data.data.tokensUsed}` : '';
+      typeWriter(resultEl, data.data.content);
+      showToast('Analyse complétée avec succès', 'success');
+    } else {
+      resultEl.textContent = `Erreur: ${data.error}`;
+      showToast(data.error, 'error');
+    }
+  } catch (error) {
+    resultEl.textContent = `Erreur de connexion: ${error.message}`;
+    showToast('Erreur de connexion API', 'error');
+  } finally {
+    resetLoading('btn-analyze', 'analyze-text', '⚡ LANCER L'ANALYSE IA');
+  }
+}
+
+async function runEmergencyProtocol() {
+  const virusName = document.getElementById('virus-name').value || 'PATHOGÈNE INCONNU';
+
+  setLoading('btn-emergency', 'emergency-text', 'URGENCE EN COURS...');
+
+  document.getElementById('result-box').style.display = 'block';
+  const resultEl = document.getElementById('analysis-result');
+  resultEl.innerHTML = '<span class="loading">🚨 PROTOCOLE D'URGENCE ACTIVÉ...</span>';
+
+  try {
+    const response = await fetch(`${API_BASE}/emergency`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ virusName })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      typeWriter(resultEl, data.data.content);
+      showToast('Protocole d'urgence généré', 'success');
+    } else {
+      resultEl.textContent = `Erreur: ${data.error}`;
+      showToast(data.error, 'error');
+    }
+  } catch (error) {
+    resultEl.textContent = `Erreur de connexion: ${error.message}`;
+    showToast('Erreur de connexion API', 'error');
+  } finally {
+    resetLoading('btn-emergency', 'emergency-text', '🚨 PROTOCOLE D'URGENCE');
+  }
+}
+
+async function designAntidote() {
+  const virusName = document.getElementById('virus-name').value || 'Hantavirus Andes';
+
+  setLoading('btn-design', 'design-text', 'CONCEPTION EN COURS...');
+
+  document.getElementById('result-box').style.display = 'block';
+  const resultEl = document.getElementById('analysis-result');
+  resultEl.innerHTML = '<span class="loading">💉 CONCEPTION D'ANTIDOTE EN COURS...</span>';
+
+  try {
+    const response = await fetch(`${API_BASE}/design-antidote`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ virusName })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      typeWriter(resultEl, data.data.content);
+      showToast('Antidote conçu avec succès', 'success');
+    } else {
+      resultEl.textContent = `Erreur: ${data.error}`;
+      showToast(data.error, 'error');
+    }
+  } catch (error) {
+    resultEl.textContent = `Erreur de connexion: ${error.message}`;
+    showToast('Erreur de connexion API', 'error');
+  } finally {
+    resetLoading('btn-design', 'design-text', '💉 CONCEVOIR ANTIDOTE');
+  }
+}
+
+async function designAntidotePipeline() {
+  const target = document.getElementById('target-virus').value || 'Hantavirus Andes';
+  const solType = document.getElementById('solution-type').value;
+  const tech = document.getElementById('tech-type').value;
+  const pop = document.getElementById('population').value;
+
+  setLoading('btn-pipeline', 'pipeline-text', 'PIPELINE EN COURS...');
+
+  const box = document.getElementById('antidote-result-box');
+  const el = document.getElementById('antidote-result');
+  box.style.display = 'block';
+  el.innerHTML = '<span class="loading">🧬 CONCEPTION DU PIPELINE EN COURS...</span>';
+
+  try {
+    const response = await fetch(`${API_BASE}/design-antidote`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ virusName: target, solutionType: solType, tech, population: pop })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      typeWriter(el, data.data.content);
+      showToast('Pipeline conçu avec succès', 'success');
+    } else {
+      el.textContent = `Erreur: ${data.error}`;
+      showToast(data.error, 'error');
+    }
+  } catch (error) {
+    el.textContent = `Erreur de connexion: ${error.message}`;
+    showToast('Erreur de connexion API', 'error');
+  } finally {
+    resetLoading('btn-pipeline', 'pipeline-text', '🧬 CONCEVOIR LA SOLUTION');
+  }
+}
+
+async function consultBioMedicine() {
+  const query = document.getElementById('bio-query').value;
+  if (!query) {
+    showToast('Veuillez entrer une question', 'error');
+    return;
+  }
+
+  setLoading('btn-bio', 'bio-text', 'CONSULTATION EN COURS...');
+
+  const el = document.getElementById('bio-result');
+  el.style.display = 'block';
+  el.innerHTML = '<span class="loading">🧬 CONSULTATION EN COURS...</span>';
+
+  try {
+    const response = await fetch(`${API_BASE}/biomedicine`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      typeWriter(el, data.data.content);
+      showToast('Réponse reçue', 'success');
+    } else {
+      el.textContent = `Erreur: ${data.error}`;
+      showToast(data.error, 'error');
+    }
+  } catch (error) {
+    el.textContent = `Erreur de connexion: ${error.message}`;
+    showToast('Erreur de connexion API', 'error');
+  } finally {
+    resetLoading('btn-bio', 'bio-text', '🧬 CONSULTER L'IA');
+  }
+}
+
+async function generateHantaAntidote() {
+  setLoading('btn-hanta', 'hanta-text', 'GÉNÉRATION EN COURS...');
+
+  const el = document.getElementById('hanta-result');
+  el.style.display = 'block';
+  el.innerHTML = '<span class="loading">⚡ GÉNÉRATION DU PROTOCOLE HANTAVIRUS...</span>';
+
+  try {
+    const response = await fetch(`${API_BASE}/hantavirus-protocol`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      typeWriter(el, data.data.content);
+      showToast('Protocole Hantavirus généré', 'success');
+    } else {
+      el.textContent = `Erreur: ${data.error}`;
+      showToast(data.error, 'error');
+    }
+  } catch (error) {
+    el.textContent = `Erreur de connexion: ${error.message}`;
+    showToast('Erreur de connexion API', 'error');
+  } finally {
+    resetLoading('btn-hanta', 'hanta-text', '⚡ GÉNÉRER PROTOCOLE COMPLET PAR IA');
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  checkApiStatus();
+});
+</script>
+</body>
+</html>
